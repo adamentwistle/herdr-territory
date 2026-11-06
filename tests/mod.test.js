@@ -1,10 +1,12 @@
 // The mod itself, on a fake clock with no app: what it reads, when it redraws, what a press does.
 
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { afterEach, test } from "node:test";
 import { COLLISION_MS, HEAT_MS } from "../mods/territory/activity.js";
 import { Run, host } from "./stubs/runner.js";
 import { callOf, textOf, walk } from "./stubs/gpui.js";
+import { thousands } from "../mods/territory/frame.js";
 
 let run;
 afterEach(() => { run?.stop(); run = null; });
@@ -321,4 +323,9 @@ test("a hidden demo stops", async () => {
   const renders = run.renders;
   await run.advance(15000);
   assert.equal(run.renders, renders);
+});
+
+test("counts take commas without locale data, which Herdr's script engine doesn't have", () => {
+  assert.deepEqual([0, 999, 1000, 48211, 1234567].map(thousands), ["0", "999", "1,000", "48,211", "1,234,567"]);
+  assert.doesNotMatch(readFileSync(new URL("../mods/territory/main.js", import.meta.url), "utf8"), /toLocaleString/);
 });

@@ -27,10 +27,14 @@ export function placeOf({ focused, spaces, panes, home }) {
 
 const wordOf = (status) => (typeof status === "string" ? status : status?.state ?? null);
 
-function nameFor(t, info) {
+// The name Herdr shows for it: the terminal's, a named tab's, or its space's, as the Agents list has it. `null` when Herdr
+// has none, and then the session's name or the title stands in.
+function herdrName(t, info) {
   const tab = info?.tab_name && !/^\d+$/.test(info.tab_name) ? info.tab_name : "";
-  return cut(t.name || tab || plain(info?.title) || info?.program?.name || t.address);
+  return t.name || tab || info?.space_name || null;
 }
+
+const nameFor = (t, info) => cut(herdrName(t, info) || plain(info?.title) || info?.program?.name || t.address);
 
 // The agents on this repo: every agent in the focused space, every agent in another space whose folder is in the repo, and
 // whatever those started. `list` is `hc ls --all --json`, `agents` is the live list. Shells and finished terminals stay off.
@@ -49,7 +53,7 @@ export function crewOf({ list, agents, space, root }) {
     if (agentLike(t)) {
       const about = info.get(t.address);
       found.set(t.address, {
-        key: t.address, address: t.address, pane: about?.pane ?? null, name: nameFor(t, about), status: about?.status ?? wordOf(t.status) ?? "idle",
+        key: t.address, address: t.address, pane: about?.pane ?? null, name: nameFor(t, about), named: Boolean(herdrName(t, about)), status: about?.status ?? wordOf(t.status) ?? "idle",
         app: t.agent === READABLE_APP || about?.app === READABLE_APP ? READABLE_APP : about?.app ?? t.agent ?? null, owner: null, sub: false, readable: false,
       });
     }
@@ -74,7 +78,7 @@ export function withTranscripts({ crew, sessions, root, now }) {
   const out = [], touches = [], ended = [];
   for (const c of crew) {
     const session = sessions?.[c.key];
-    out.push({ ...c, name: session?.name ? cut(session.name) : c.name, readable: Boolean(session) });
+    out.push({ ...c, name: !c.named && session?.name ? cut(session.name) : c.name, readable: Boolean(session) });
     if (!session) continue;
     touches.push(...touchesFrom(c.key, session.events, root));
     for (const a of session.agents ?? []) {

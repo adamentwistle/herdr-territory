@@ -4,7 +4,7 @@ A live map of your repo for Herdr: each coding agent is a dot on the file it's i
 
 ![Territory](preview.png)
 
-A layout for the [Herdr](https://github.com/ogulcancelik/herdr) desktop app. Built for macOS. Its checks pass on Windows, and it hasn't yet been run in a real window.
+A layout for the [Herdr](https://github.com/ogulcancelik/herdr) desktop app. Built for macOS, and run in a real Herdr 0.1.13 window there at the default zoom of 1.2. Its checks pass on Windows.
 
 It reads tool calls from Claude Code transcripts, so it runs a few seconds behind and only sees agents whose transcripts it can read. It runs `git`, `python3` and `hc`, and makes no network calls.
 

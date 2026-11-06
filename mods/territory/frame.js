@@ -3,6 +3,9 @@
 import { ago, beat, collisionLine, collisions, heatByFile, lastTouch, trailOf, visitors } from "./activity.js";
 import { MAX_DOTS } from "./crew.js";
 
+// 48211 as 48,211. Herdr's script engine has no locale data, so toLocaleString leaves the commas out.
+export const thousands = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
 export const HEADER_H = 44;
 export const DOCK_H = 28;
 export const MIN_MAP_H = 100; // shorter than this, only the header shows
@@ -14,7 +17,7 @@ const LABEL_W = 132;
 const LABEL_STEP = 15;
 const LABEL_H = 16;
 const FAN = 18;
-const EDGE = 8;
+const EDGE = 12; // the largest core's radius and its ring, so a dot on an edge block stays whole
 const CARD_HEAD = 58;
 const CARD_ROW = 28;
 const MAX_ROWS = 6;

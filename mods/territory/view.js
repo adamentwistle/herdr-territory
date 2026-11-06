@@ -65,7 +65,9 @@ function dotView(view, dot, size, t, colorOf) {
       .when(!working && !blocked, (e) => e.opacity(0.65)))
     .child(h_flex().absolute().left(dot.labelLeft).top(dot.labelTop).w(dot.labelWidth).when(!docked, (e) => e.justify_center())
       .child(div().min_w(0).px(5).rounded(4).truncate().bg(docked ? t.canvas : `${solid(t.canvas)}d9`).text_size(12).font_medium()
-        .text_color(blocked ? t.blocked : t.foreground).child(docked ? `${dot.name}  ${dot.word}` : dot.name)));
+        .text_color(blocked ? t.blocked : t.foreground).child(dot.name))
+      // Why it waits in the dock, quieter than the name, so a row of them reads as names.
+      .when(docked, (e) => e.gap(1).child(div().flex_none().text_size(12).text_color(t.muted).child(dot.word))));
 }
 
 function cardRow(view, row, t, colorOf) {
