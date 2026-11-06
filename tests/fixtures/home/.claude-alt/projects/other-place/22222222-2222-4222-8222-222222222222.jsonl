@@ -1,0 +1,1 @@
+{"type":"assistant","timestamp":"2026-06-01T10:00:10.000Z","cwd":"/somewhere/else","message":{"role":"assistant","content":[{"type":"tool_use","id":"a1","name":"NotebookEdit","input":{"notebook_path":"/somewhere/else/note.ipynb","new_source":"x"}}]}}

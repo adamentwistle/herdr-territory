@@ -1,0 +1,5 @@
+{
+    "layout:territory": {
+        "ctrl-shift-m": "territory.fold"
+    }
+}

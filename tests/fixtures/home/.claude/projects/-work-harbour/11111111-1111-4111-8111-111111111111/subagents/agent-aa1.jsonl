@@ -1,0 +1,1 @@
+{"type":"assistant","timestamp":"2026-06-01T10:00:02.000Z","isSidechain":true,"cwd":"/work/harbour","message":{"role":"assistant","content":[{"type":"tool_use","id":"s1","name":"Read","input":{"file_path":"/work/harbour/tests/router.test.ts"}}]}}

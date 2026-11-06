@@ -1,0 +1,11 @@
+{"type":"user","timestamp":"2026-06-01T10:00:00.000Z","cwd":"/work/harbour","message":{"role":"user","content":"please tidy the router, it says tool_use in this text"}}
+{"type":"assistant","timestamp":"2026-06-01T10:00:01.000Z","cwd":"/work/harbour","message":{"role":"assistant","content":[{"type":"text","text":"Looking."},{"type":"tool_use","id":"u1","name":"Read","input":{"file_path":"/work/harbour/src/router.ts"}}]}}
+{"type":"user","timestamp":"2026-06-01T10:00:02.000Z","cwd":"/work/harbour","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"u1","content":"export const secretFromTheFile = 1"}]}}
+{"type":"assistant","timestamp":"2026-06-01T10:00:03.000Z","cwd":"/work/harbour","message":{"role":"assistant","content":[{"type":"tool_use","id":"u2","name":"Edit","input":{"file_path":"/work/harbour/src/router.ts","old_string":"secret old text","new_string":"secret new text"}}]}}
+{"type":"user","timestamp":"2026-06-01T10:00:04.000Z","cwd":"/work/harbour","message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"u2","is_error":true,"content":"String to replace not found"}]}}
+{"type":"assistant","timestamp":"2026-06-01T10:00:05.000Z","cwd":"/work/harbour","message":{"role":"assistant","content":[{"type":"tool_use","id":"u3","name":"Write","input":{"file_path":"src/new.ts","content":"secret file body"}}]}}
+{"type":"assistant","timestamp":"2026-06-01T10:00:06.000Z","cwd":"/work/harbour","message":{"role":"assistant","content":[{"type":"tool_use","id":"u4","name":"Bash","input":{"command":"sed -i s/a/b/ src/router.ts"}}]}}
+{"type":"assistant","timestamp":"2026-06-01T10:00:07.000Z","cwd":"/work/harbour","message":{"role":"assistant","content":[{"type":"tool_use","id":"u5","name":"Grep","input":{"pattern":"secret pattern","path":"/work/harbour/src"}}]}}
+{"type":"assistant","timestamp":"2026-06-01T10:00:08.000Z","cwd":"/work/harbour","isSidechain":true,"message":{"role":"assistant","content":[{"type":"tool_use","id":"u6","name":"Read","input":{"file_path":"/work/harbour/old-sidechain.ts"}}]}}
+{"type":"assistant","timestamp":"2026-06-01T10:00:09.000Z","cwd":"/work/harbour","message":{"role":"assistant","content":[{"type":"tool_use","id":"u7","name":"Grep","input":{"pattern":"no path given"}}]}}
+this line is not JSON and names "tool_use" all the same
