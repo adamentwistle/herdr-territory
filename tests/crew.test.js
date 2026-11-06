@@ -247,3 +247,10 @@ test("the demo fits a window 390 wide", () => {
   for (const tile of frame.map.tiles) assert.ok(tile.x + tile.w <= 390);
   for (const dot of frame.dots) assert.ok(dot.x <= 390);
 });
+
+test("Herdr's own name for an agent beats the session's, so the map and the Agents list agree", () => {
+  const crew = crewOf({ list: [live("t1"), live("t2")], agents: [agent("t1", { space_name: "writer" }), agent("t2")], space: "s1", root: "/work/harbour" });
+  const sessions = { t1: { name: "harbour-42", events: [], agents: [] }, t2: { name: "harbour-08", events: [], agents: [] } };
+  const { crew: read } = withTranscripts({ crew, sessions, root: "/work/harbour", now: NOW });
+  assert.deepEqual(read.map((c) => [c.key, c.name]), [["t1", "writer"], ["t2", "harbour-08"]]);
+});

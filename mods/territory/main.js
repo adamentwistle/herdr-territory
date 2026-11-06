@@ -10,7 +10,7 @@ import { RECENT_MS, addTouches } from "./activity.js";
 import { touchesFrom } from "./calls.js";
 import { READABLE_APP, assignSlots, crewOf, placeOf, withStatus, withTranscripts } from "./crew.js";
 import { DEMO_STEP_MS, demoRepo, demoWorld } from "./demo.js";
-import { buildFrame, hasMap, zoneOf } from "./frame.js";
+import { buildFrame, hasMap, thousands, zoneOf } from "./frame.js";
 import { helperFailure, helperReply, isShown, timed } from "./poll.js";
 import { layoutMap } from "./treemap.js";
 import { COLOURS, territory } from "./view.js";
@@ -287,8 +287,8 @@ export default class Territory extends View {
   facts() {
     const repo = this.repo;
     if (repo?.state !== "ok") return "";
-    const count = repo.total.toLocaleString("en-GB"), grouped = this.frame?.map?.grouped ?? 0;
-    return grouped ? `${count} files, ${grouped.toLocaleString("en-GB")} in groups` : `${count} files`;
+    const count = thousands(repo.total), grouped = this.frame?.map?.grouped ?? 0;
+    return grouped ? `${count} files, ${thousands(grouped)} in groups` : `${count} files`;
   }
 
   note() {
